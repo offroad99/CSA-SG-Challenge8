@@ -8,5 +8,6 @@ myPerson = list(myPersonList)[0]
 myAPI.memberships.create(myRoom.id, personEmail="george.bekmezian@cvetech.com")
 myAPI.messages.create(roomId=myRoom.id, text=f"Hi {myPerson.displayName}")
 
+input("press any key to delete room and exit script")
 
 myAPI.rooms.delete(myRoom.id)
