@@ -8,16 +8,19 @@ from webexteamssdk import WebexTeamsAPI, ApiError
 
 try:
     myAPI = WebexTeamsAPI(login.accessToken)
+    myAPI.rooms.create("sometitle")
     myRoom = myAPI.rooms.create(login.personName + "-DEVNET-TEST")
     myPersonList = myAPI.people.list(login.personEmail)
     myPerson = list(myPersonList)[0]
     myAPI.memberships.create(myRoom.id, personEmail=login.personEmail)
     myAPI.messages.create(roomId=myRoom.id, text=f"Hi {myPerson.displayName}")
 except ApiError as error:
-    error.response
-    error.request
-    error.details
-    error.message
+    print(f"response: {error.response}")
+    print(f"request: {error.request}")
+    print(f"details: {error.details}")
+    print(f"messages: {error.message}")
+    print("Exiting script")
+    exit
 
 input("press enter to delete room and exit script")
 
