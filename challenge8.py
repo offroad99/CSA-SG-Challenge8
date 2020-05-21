@@ -1,4 +1,5 @@
 import login
+import requests
 from webexteamssdk import WebexTeamsAPI, ApiError
 
 #        ***format of login.py***
@@ -13,14 +14,18 @@ try:
     myPersonList = myAPI.people.list(login.personEmail)
     myPerson = list(myPersonList)[0]
     myAPI.memberships.create(myRoom.id, personEmail=login.personEmail)
-    myAPI.messages.create(roomId=myRoom.id, text=f"Hi {myPerson.displayName}")
+    myAPI.messages.create(roomId=myRoom.id, text=f"Hi {myPerson.displayName}, welcome to the DevNet Study Group")
 except ApiError as error:
     print(f"response: {error.response}")
-    print(f"request: {error.request}")
+    print(f"response headers: {error.response.headers}")
+    print(f"response text: {error.response.text}")
+    print(f"response content: {error.response.content}")
+    print(f"request headers: {error.request.headers}")
+    print(f"request body: {error.request.body}")
     print(f"details: {error.details}")
     print(f"messages: {error.message}")
     print("Exiting script")
-    exit
+    quit()
 
 input("press enter to delete room and exit script")
 
