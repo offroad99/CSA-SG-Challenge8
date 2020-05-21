@@ -8,7 +8,6 @@ from webexteamssdk import WebexTeamsAPI, ApiError
 
 try:
     myAPI = WebexTeamsAPI(login.accessToken)
-    myAPI.rooms.create("sometitle")
     myRoom = myAPI.rooms.create(login.personName + "-DEVNET-TEST")
     myPersonList = myAPI.people.list(login.personEmail)
     myPerson = list(myPersonList)[0]
