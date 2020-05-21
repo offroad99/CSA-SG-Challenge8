@@ -1,13 +1,24 @@
 import login
 from webexteamssdk import WebexTeamsAPI, ApiError
 
-myAPI = WebexTeamsAPI(login.accessToken)
-myRoom = myAPI.rooms.create("George Bekmezian-DEVNET-TEST")
-myPersonList = myAPI.people.list("george.bekmezian@cvetech.com")
-myPerson = list(myPersonList)[0]
-myAPI.memberships.create(myRoom.id, personEmail="george.bekmezian@cvetech.com")
-myAPI.messages.create(roomId=myRoom.id, text=f"Hi {myPerson.displayName}")
+#        ***format of login.py***
+#accessToken = "{token}"
+#personName = "{name to prepend to space}"
+#personEmail = "{email address of person to invite}"
 
-input("press any key to delete room and exit script")
+try:
+    myAPI = WebexTeamsAPI(login.accessToken)
+    myRoom = myAPI.rooms.create(login.personName + "-DEVNET-TEST")
+    myPersonList = myAPI.people.list(login.personEmail)
+    myPerson = list(myPersonList)[0]
+    myAPI.memberships.create(myRoom.id, personEmail=login.personEmail)
+    myAPI.messages.create(roomId=myRoom.id, text=f"Hi {myPerson.displayName}")
+except ApiError as error:
+    error.response
+    error.request
+    error.details
+    error.message
+
+input("press enter to delete room and exit script")
 
 myAPI.rooms.delete(myRoom.id)
