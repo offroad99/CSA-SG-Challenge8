@@ -1,5 +1,4 @@
 import login
-import requests
 from webexteamssdk import WebexTeamsAPI, ApiError
 
 #        ***format of login.py***
